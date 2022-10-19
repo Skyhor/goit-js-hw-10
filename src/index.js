@@ -1,6 +1,9 @@
 import './css/styles.css';
 import Notiflix from 'notiflix';
 import debounce from 'lodash.debounce';
+const FILTER_ITEMS =
+  'fields=name,capital,population,flags,languages,altSpellings';
+const URL = 'https://restcountries.com/v3.1';
 const DEBOUNCE_DELAY = 300;
 const divEl = document.querySelector('.country-info');
 const input = document.querySelector('input');
@@ -17,9 +20,8 @@ function articles(name) {
     divEl.innerHTML = '';
     return;
   }
-  const url = `https://restcountries.com/v3.1/name/${name}`;
 
-  fetch(url).then(resp => {
+  fetch(`${URL}/name/${name}?${FILTER_ITEMS}`).then(resp => {
     if (!resp.ok) {
       divEl.innerHTML = '';
       throw Notiflix.Notify.failure('Oops, there is no country with that name');
@@ -42,7 +44,7 @@ function getMurkup(data) {
          flags.png
        }" alt="${fifa}" width='100'></div>
        <div class="text-card">
-         <p class="text">name: ${altSpellings[1]}</p>
+      <p class="text">name: ${altSpellings[1]}</p>
          <p class="text">capital: ${capital}</p>
          <p class="text">population: ${population}</p>
          <p class="text">languages: ${Object.values(languages)}</p>
