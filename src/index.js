@@ -9,7 +9,7 @@ input.addEventListener('input', debounce(onSerch, DEBOUNCE_DELAY));
 let name = '';
 function onSerch(e) {
   e.preventDefault();
-  name = e.target.value;
+  name = e.target.value.trim();
   articles(name);
 }
 function articles(name) {
